@@ -5,37 +5,34 @@ import BookInstance from "../models/bookinstance.js";
 import async from "async";
 
 export async function index(req, res) {
-  async.parallel(
-    {
-      book_count(callback) {
-        Book.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-      },
-      book_instance_count(callback) {
-        BookInstance.countDocuments({}, callback);
-      },
-      book_instance_available_count(callback) {
-        BookInstance.countDocuments({ status: "Available" }, callback);
-      },
-      author_count(callback) {
-        Author.countDocuments({}, callback);
-      },
-      genre_count(callback) {
-        Genre.countDocuments({}, callback);
-      },
-    },
-    (err, results) => {
-      res.render("index", {
-        title: "Local Library Home",
-        error: err,
-        data: results,
-      });
-    }
-  );
+  const bookCount = Book.countDocuments({});
+  const bookInstanceCount = BookInstance.countDocuments({});
+  const bookInstanceAvailableCount = BookInstance.countDocuments({
+    status: "Available",
+  });
+  const authorCount = Author.countDocuments({});
+  const genreCount = Genre.countDocuments({});
+
+  const data = {
+    bookCount: await bookCount,
+    bookInstanceCount: await bookInstanceCount,
+    bookInstanceAvailableCount: await bookInstanceAvailableCount,
+    authorCount: await authorCount,
+    genreCount: await genreCount,
+  };
+
+  res.render("index", { title: "Local Library Home", data, page: "home" });
 }
 
 // Display list of all books.
-export function book_list(req, res) {
-  res.send("NOT IMPLEMENTED: Book list");
+export async function bookList(req, res) {
+  const allBooks = await Book.find({}, "title author")
+    .sort({ title: 1 })
+    .populate("author");
+
+  console.log(allBooks);
+
+  res.render("books", { title: "All Books", data: allBooks, page: "books" });
 }
 
 // Display detail page for a specific book.
