@@ -1,8 +1,15 @@
 import BookInstance from "../models/bookinstance.js";
 
 // Display list of all BookInstances.
-export function bookinstance_list(req, res) {
-  res.send("NOT IMPLEMENTED: BookInstance list");
+export async function bookInstanceList(req, res) {
+  const allBookInstances = await BookInstance.find().populate("book");
+  console.log(allBookInstances);
+
+  res.render("bookInstances", {
+    title: "All Book Instances",
+    data: allBookInstances,
+    page: "book instances",
+  });
 }
 
 // Display detail page for a specific BookInstance.
