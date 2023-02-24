@@ -11,7 +11,7 @@ import {
   book_update_get,
   book_update_post,
   book_detail,
-  book_list,
+  bookList,
 } from "../controllers/bookController.js";
 import {
   author_create_get,
@@ -71,7 +71,7 @@ router.post("/book/:id/update", book_update_post);
 router.get("/book/:id", book_detail);
 
 // GET request for list of all Book items.
-router.get("/books", book_list);
+router.get("/books", bookList);
 
 /// AUTHOR ROUTES ///
 
