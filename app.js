@@ -43,11 +43,11 @@ app.use(express.static(fileURLToPath(new URL("public", import.meta.url))));
 //-------------------- Routes --------------------//
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
-import wikiRouter from "./routes/wiki.js";
+import catalogRouter from "./routes/catalog.js";
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/wiki", wikiRouter);
+app.use("/catalog", catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
