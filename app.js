@@ -1,39 +1,53 @@
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-require("dotenv").config();
+// const createError = require("http-errors");
+import createError from "http-errors";
+// const express = require("express");
+import express from "express";
+// const path = require("path");
+import path from "path";
+// const cookieParser = require("cookie-parser");
+import cookieParser from "cookie-parser";
+// const logger = require("morgan");
+import morgan from "morgan";
+import dotenv from "dotenv";
+dotenv.config();
+import { fileURLToPath, URL } from "url";
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+// const indexRouter = require("./routes/index");
+// const usersRouter = require("./routes/users");
 
 const app = express();
 
 // Set up mongoose connection
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+// const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER_NAME}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const mongoDB = `${process.env.MONGO_URI}?retryWrites=true&w=majority`;
 
-main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(mongoDB, () => {
+  mongoose.connect(mongoDB, () => {
     console.log("Connected to DB");
   });
 }
+main().catch((err) => console.log(err));
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", fileURLToPath(new URL("views", import.meta.url)));
 app.set("view engine", "ejs");
 
-app.use(logger("dev"));
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(fileURLToPath(new URL("public", import.meta.url))));
+
+//-------------------- Routes --------------------//
+import indexRouter from "./routes/index.js";
+import usersRouter from "./routes/users.js";
+import wikiRouter from "./routes/wiki.js";
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/wiki", wikiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,4 +65,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+export default app;
