@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema as _Schema, model } from "mongoose";
 
-const Schema = mongoose.Schema;
+const Schema = _Schema;
 
 const AuthorSchema = new Schema({
   first_name: { type: String, required: true, maxLength: 100 },
@@ -30,4 +30,4 @@ AuthorSchema.virtual("url").get(function () {
 });
 
 // Export model
-module.exports = mongoose.model("Author", AuthorSchema);
+export default model("Author", AuthorSchema);
