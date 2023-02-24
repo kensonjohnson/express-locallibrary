@@ -30,8 +30,6 @@ export async function bookList(req, res) {
     .sort({ title: 1 })
     .populate("author");
 
-  console.log(allBooks);
-
   res.render("books", { title: "All Books", data: allBooks, page: "books" });
 }
 
