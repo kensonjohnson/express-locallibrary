@@ -1,20 +1,13 @@
-// const createError = require("http-errors");
 import createError from "http-errors";
-// const express = require("express");
 import express from "express";
-// const path = require("path");
-import path from "path";
-// const cookieParser = require("cookie-parser");
+import expressLayouts from "express-ejs-layouts";
 import cookieParser from "cookie-parser";
-// const logger = require("morgan");
 import morgan from "morgan";
 import dotenv from "dotenv";
 dotenv.config();
 import { fileURLToPath, URL } from "url";
 
-// const indexRouter = require("./routes/index");
-// const usersRouter = require("./routes/users");
-
+// Initialize express app
 const app = express();
 
 // Set up mongoose connection
@@ -33,6 +26,7 @@ main().catch((err) => console.log(err));
 // view engine setup
 app.set("views", fileURLToPath(new URL("views", import.meta.url)));
 app.set("view engine", "ejs");
+app.use(expressLayouts);
 
 app.use(morgan("dev"));
 app.use(express.json());
