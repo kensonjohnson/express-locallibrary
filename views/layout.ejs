@@ -25,27 +25,27 @@
           <hr />
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link text-white active" href="/catalog"
+              <a class="nav-link text-white <% if(page && page === "home"){ %><%= "active" %><% } %>" href="/catalog"
                 ><i class="bi bi-house"></i> Home
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/books">
+              <a class="nav-link text-white <% if(page && page === "books"){ %><%= "active" %><% } %>" href="/catalog/books">
                 <i class="bi bi-bookshelf"></i> All Book
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/authors">
+              <a class="nav-link text-white <% if(page && page === "authors"){ %><%= "active" %><% } %>" href="/catalog/authors">
                 <i class="bi bi-person-lines-fill"></i> All Authors
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/genres">
+              <a class="nav-link text-white <% if(page && page === "genre"){ %><%= "active" %><% } %>" href="/catalog/genres">
                 <i class="bi bi-list"></i> All Genres
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/bookinstance">
+              <a class="nav-link text-white <% if(page && page === "book instances"){ %><%= "active" %><% } %>" href="/catalog/bookinstance">
                 <i class="bi bi-journals"></i> All Book Instances
               </a>
             </li>
