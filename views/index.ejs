@@ -4,17 +4,23 @@
   users.
 </p>
 <h1>Dynamic Content</h1>
-<% if(error){ %>
+<% if(!data){ %>
 <p>Error occured while getting content</p>
 <% } else { %>
 <p>The library has the following records:</p>
 <ul>
-  <li><strong>Books: </strong><%= data.book_count %></li>
-  <li><strong>Copies: </strong><%= data.book_instance_count %></li>
+  <% if(data.bookCount){ %>
+  <li><strong>Books: </strong><%= data.bookCount %></li>
+  <% } if(data.bookInstanceCount){ %>
+  <li><strong>Copies: </strong><%= data.bookInstanceCount %></li>
+  <% } if(data.bookInstanceAvailableCount){ %>
   <li>
-    <strong>Copies Available: </strong><%= data.book_instance_available_count %>
+    <strong>Copies Available: </strong><%= data.bookInstanceAvailableCount %>
   </li>
-  <li><strong>Authors: </strong><%= data.author_count %></li>
-  <li><strong>Genres: </strong><%= data.genre_count %></li>
+  <% } if(data.authorCount){ %>
+  <li><strong>Authors: </strong><%= data.authorCount %></li>
+  <% } if(data.genreCount){ %>
+  <li><strong>Genres: </strong><%= data.genreCount %></li>
+  <% } %>
 </ul>
 <% } %>
