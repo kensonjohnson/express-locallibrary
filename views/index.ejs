@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<h1><%= title %></h1>
+<p>
+  Welcome to my Library App, which is an Express site that catalogs books for
+  users.
+</p>
+<h1>Dynamic Content</h1>
+<% if(error){ %>
+<p>Error occured while getting content</p>
+<% } else { %>
+<p>The library has the following records:</p>
+<ul>
+  <li><strong>Books: </strong><%= data.book_count %></li>
+  <li><strong>Copies: </strong><%= data.book_instance_count %></li>
+  <li>
+    <strong>Copies Available: </strong><%= data.book_instance_available_count %>
+  </li>
+  <li><strong>Authors: </strong><%= data.author_count %></li>
+  <li><strong>Genres: </strong><%= data.genre_count %></li>
+</ul>
+<% } %>
