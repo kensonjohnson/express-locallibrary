@@ -1,4 +1,5 @@
 import Author from "../models/author.js";
+import Book from "../models/book.js";
 
 // Display list of all Authors.
 export async function authors(req, res) {
@@ -11,10 +12,26 @@ export async function authors(req, res) {
 }
 
 // Display detail page for a specific Author.
-export function author_detail(req, res) {
-  res.send(`NOT IMPLEMENTED: Author detail: ${req.params.id}`);
-}
+export async function authorDetails(req, res, next) {
+  const author = Author.findById(req.params.id);
+  const booksByAuthor = Book.find({ author: req.params.id }, "title summary");
 
+  const data = { author: await author, booksByAuthor: await booksByAuthor };
+
+  console.log(data);
+
+  if (data === null) {
+    const err = new Error("Author not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("authorDetails", {
+    title: "Author Details",
+    data,
+    page: "authors",
+  });
+}
 // Display Author create form on GET.
 export function author_create_get(req, res) {
   res.send("NOT IMPLEMENTED: Author create GET");

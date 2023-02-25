@@ -1,0 +1,25 @@
+<% if(data && data.author){ %>
+<h1>Author: <%= data.author.name %></h1>
+<p>
+  <%= data.author.date_of_birth ? data.author.date_of_birth.toLocaleDateString()
+  : "Unknown" %><%= data.author.date_of_death ? ` -
+  ${data.author.date_of_death.toLocaleDateString()}` : ""%>
+</p>
+<hr />
+<h4>Books</h4>
+<% if(data.booksByAuthor.length > 0){ %>
+<ul class="list-group w-auto">
+  <% data.booksByAuthor.forEach((book)=>{ %>
+  <li
+    class="list-group-item list-group-item-action d-flex flex-column gap-3 py-1"
+  >
+    <a href="<%= book.url %>"><%= book.title %></a>
+    <p><%= book.summary %></p>
+  </li>
+  <% }) %>
+</ul>
+<% } else { %>
+<h4>No books found by this author</h4>
+<% }} else { %>
+<h1>Author not found</h1>
+<% } %>

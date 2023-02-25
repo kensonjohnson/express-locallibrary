@@ -20,7 +20,7 @@ import {
   author_delete_post,
   author_update_get,
   author_update_post,
-  author_detail,
+  authorDetails,
   authors,
 } from "../controllers/authorController.js";
 import {
@@ -94,7 +94,7 @@ router.get("/authors/:id/update", author_update_get);
 router.post("/authors/:id/update", author_update_post);
 
 // GET request for one Author.
-router.get("/authors/:id", author_detail);
+router.get("/authors/:id", authorDetails);
 
 // GET request for list of all Authors.
 router.get("/authors", authors);
