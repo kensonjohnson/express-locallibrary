@@ -16,7 +16,6 @@ export async function genreDetails(req, res, next) {
   const genre = Genre.findById(req.params.id);
   const genreBooks = Book.find({ genre: req.params.id });
   const data = { genre: await genre, genreBooks: await genreBooks };
-  console.log(data);
 
   if (data === null) {
     const err = new Error("Genre not found");
