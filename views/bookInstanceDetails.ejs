@@ -1,0 +1,16 @@
+<% if(data){ %>
+    <h1>ID: <%= data._id %></h1>
+    <div class="card mt-3">
+        <div class="card-header "><strong>Title: </strong><a href="data.book.url"><%= data.book.title %></a></div>
+        <div class="card-body "><strong>Imprint: </strong><%= data.imprint %></div>
+        <div class="card-footer d-flex gap-3 "><strong>Status: </strong>
+            <% if(data.status){ %>
+                <span class="<%= data.status === "Available" ? "text-success" : data.status === "Maintenance" ? "text-danger" : "text-warning" %>"><%= data.status %></span>    
+            <% } if(data.status !== "Available"){ %>
+                <span>Due: <%= data.due_back.toLocaleDateString() %></span>
+            <% } %>
+            </div>
+    </div>
+<% } else { %>
+    <h1>Book availability not found</h1>
+<% } %>

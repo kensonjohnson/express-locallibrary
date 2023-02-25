@@ -40,7 +40,7 @@ import {
   bookinstance_delete_post,
   bookinstance_update_get,
   bookinstance_update_post,
-  bookinstance_detail,
+  bookinstanceDetails,
   bookInstanceList,
 } from "../controllers/bookInstanceController.js";
 
@@ -146,7 +146,7 @@ router.get("/bookinstances/:id/update", bookinstance_update_get);
 router.post("/bookinstances/:id/update", bookinstance_update_post);
 
 // GET request for one BookInstance.
-router.get("/bookinstances/:id", bookinstance_detail);
+router.get("/bookinstances/:id", bookinstanceDetails);
 
 // GET request for list of all BookInstance.
 router.get("/bookinstances", bookInstanceList);

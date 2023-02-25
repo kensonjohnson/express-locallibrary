@@ -11,8 +11,20 @@ export async function bookInstanceList(req, res) {
 }
 
 // Display detail page for a specific BookInstance.
-export function bookinstance_detail(req, res) {
-  res.send(`NOT IMPLEMENTED: BookInstance detail: ${req.params.id}`);
+export async function bookinstanceDetails(req, res, next) {
+  const data = await BookInstance.findById(req.params.id).populate("book");
+
+  if (data === null || data === []) {
+    const err = new Error("Book availablity not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("bookInstanceDetails", {
+    title: "Book Availability",
+    data,
+    page: "book instances",
+  });
 }
 
 // Display BookInstance create form on GET.
