@@ -2,7 +2,7 @@ import Author from "../models/author.js";
 
 // Display list of all Authors.
 export async function authors(req, res) {
-  const allAuthors = await Author.find().sort([["family_name", "ascending"]]);
+  const allAuthors = await Author.find().sort({ family_name: 1 });
   res.render("authors", {
     title: "All Authors",
     data: allAuthors,
