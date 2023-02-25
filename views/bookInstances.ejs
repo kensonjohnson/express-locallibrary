@@ -7,7 +7,7 @@
     <% if(instance.status){ %>
     <span class="<%= instance.status === "Available" ? "text-success" : instance.status === "Maintenance" ? "text-danger" : "text-warning" %>"><%= instance.status %></span>    
     <% } if(instance.status !== "Available"){ %>
-        <span>Due: <%= instance.due_back %></span>
+        <span>Due: <%= instance.due_back.toLocaleDateString() %></span>
   </li>
   <% } %>
 
