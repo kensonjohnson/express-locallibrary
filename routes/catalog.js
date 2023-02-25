@@ -30,7 +30,7 @@ import {
   genre_delete_post,
   genre_update_get,
   genre_update_post,
-  genre_detail,
+  genreDetails,
   genres,
 } from "../controllers/genreController.js";
 import {
@@ -120,7 +120,7 @@ router.get("/genres/:id/update", genre_update_get);
 router.post("/genres/:id/update", genre_update_post);
 
 // GET request for one Genre.
-router.get("/genres/:id", genre_detail);
+router.get("/genres/:id", genreDetails);
 
 // GET request for list of all Genre.
 router.get("/genres", genres);
