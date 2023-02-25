@@ -21,7 +21,7 @@ import {
   author_update_get,
   author_update_post,
   author_detail,
-  authorList,
+  authors,
 } from "../controllers/authorController.js";
 import {
   genre_create_get,
@@ -31,7 +31,7 @@ import {
   genre_update_get,
   genre_update_post,
   genre_detail,
-  genre_list,
+  genres,
 } from "../controllers/genreController.js";
 import {
   bookinstance_create_get,
@@ -76,54 +76,54 @@ router.get("/books", bookList);
 /// AUTHOR ROUTES ///
 
 // GET request for creating Author. NOTE This must come before route for id (i.e. display author).
-router.get("/author/create", author_create_get);
+router.get("/authors/create", author_create_get);
 
 // POST request for creating Author.
-router.post("/author/create", author_create_post);
+router.post("/authors/create", author_create_post);
 
 // GET request to delete Author.
-router.get("/author/:id/delete", author_delete_get);
+router.get("/authors/:id/delete", author_delete_get);
 
 // POST request to delete Author.
-router.post("/author/:id/delete", author_delete_post);
+router.post("/authors/:id/delete", author_delete_post);
 
 // GET request to update Author.
-router.get("/author/:id/update", author_update_get);
+router.get("/authors/:id/update", author_update_get);
 
 // POST request to update Author.
-router.post("/author/:id/update", author_update_post);
+router.post("/authors/:id/update", author_update_post);
 
 // GET request for one Author.
-router.get("/author/:id", author_detail);
+router.get("/authors/:id", author_detail);
 
 // GET request for list of all Authors.
-router.get("/authors", authorList);
+router.get("/authors", authors);
 
 /// GENRE ROUTES ///
 
 // GET request for creating a Genre. NOTE This must come before route that displays Genre (uses id).
-router.get("/genre/create", genre_create_get);
+router.get("/genres/create", genre_create_get);
 
 //POST request for creating Genre.
-router.post("/genre/create", genre_create_post);
+router.post("/genres/create", genre_create_post);
 
 // GET request to delete Genre.
-router.get("/genre/:id/delete", genre_delete_get);
+router.get("/genres/:id/delete", genre_delete_get);
 
 // POST request to delete Genre.
-router.post("/genre/:id/delete", genre_delete_post);
+router.post("/genres/:id/delete", genre_delete_post);
 
 // GET request to update Genre.
-router.get("/genre/:id/update", genre_update_get);
+router.get("/genres/:id/update", genre_update_get);
 
 // POST request to update Genre.
-router.post("/genre/:id/update", genre_update_post);
+router.post("/genres/:id/update", genre_update_post);
 
 // GET request for one Genre.
-router.get("/genre/:id", genre_detail);
+router.get("/genres/:id", genre_detail);
 
 // GET request for list of all Genre.
-router.get("/genres", genre_list);
+router.get("/genres", genres);
 
 /// BOOKINSTANCE ROUTES ///
 

@@ -1,0 +1,9 @@
+<h1><%= title %></h1>
+
+<ul class="list-group w-auto">
+  <% if(data){ data.forEach((genre)=>{ %>
+  <li class="list-group-item list-group-item-action d-flex gap-3 py-1">
+    <a href="<%= genre.url %>"><%= genre.name %></a>
+  </li>
+  <% })} %>
+</ul>

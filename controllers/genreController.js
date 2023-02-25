@@ -1,8 +1,13 @@
 import Genre from "../models/genre.js";
 
 // Display list of all Genre.
-export function genre_list(req, res) {
-  res.send("NOT IMPLEMENTED: Genre list");
+export async function genres(req, res) {
+  const allGenres = await Genre.find().sort({ name: 1 });
+  res.render("genres", {
+    title: "All Genres",
+    data: allGenres,
+    page: "genres",
+  });
 }
 
 // Display detail page for a specific Genre.
