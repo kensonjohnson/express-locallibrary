@@ -9,7 +9,6 @@
     "dev": "DEBUG=express-locallibrary-tutorial:* npm run server"
   },
   "dependencies": {
-    "async": "^3.2.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",

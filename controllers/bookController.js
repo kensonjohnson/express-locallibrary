@@ -2,7 +2,6 @@ import Book from "../models/book.js";
 import Author from "../models/author.js";
 import Genre from "../models/genre.js";
 import BookInstance from "../models/bookinstance.js";
-import async from "async";
 
 export async function index(req, res) {
   const bookCount = Book.countDocuments({});
