@@ -5,7 +5,9 @@
 <div class="d-flex flex-column gap-2 w-100">
   <% if(data){ data.genreBooks.forEach((book)=>{%>
   <div class="card">
-    <div class="card-header"><a href="book.url"><%= book.title %></a></div>
+    <div class="card-header">
+      <a href="<%= book.url %>"><%= book.title %></a>
+    </div>
     <div class="card-body"><%= book.summary %></div>
   </div>
   <% })} else { %>
