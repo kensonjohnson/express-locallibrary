@@ -14,14 +14,15 @@ const app = express();
 import mongoose from "mongoose";
 // const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = `${process.env.MONGO_URI}?retryWrites=true&w=majority`;
+const MONGO_URI = `${process.env.MONGO_URI}?retryWrites=true&w=majority`;
 
-async function main() {
-  mongoose.connect(mongoDB, () => {
-    console.log("Connected to DB");
+mongoose
+  .connect(MONGO_URI)
+  .then(console.log("Connected to DB"))
+  .catch((error) => {
+    console.error("Mongoose exited with Error:\n", error.message);
+    console.error("Is your MongoDB instance running?");
   });
-}
-main().catch((err) => console.log(err));
 
 // view engine setup
 app.set("views", fileURLToPath(new URL("views", import.meta.url)));
