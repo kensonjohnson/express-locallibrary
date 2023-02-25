@@ -1,0 +1,20 @@
+<h1><%= title %></h1>
+
+<ul class="list-group w-auto">
+  <% if(data){ data.forEach((author)=>{ %>
+  <li class="list-group-item list-group-item-action d-flex gap-3 py-1">
+    <a href="<%= author.url %>"><%= author.name %></a>
+    <div class="vr"></div>
+    <span
+      ><%= author.date_of_birth ?
+      author.date_of_birth.toLocaleDateString():"Unknown"
+      %><%=author.date_of_death? ` -
+      ${author.date_of_death.toLocaleDateString()}`:"" %></span
+    >
+  </li>
+  <% })} else { %>
+  <li class="list-group-item list-group-item-action d-flex gap-3 py-1">
+    There are no authors listed.
+  </li>
+  <% } %>
+</ul>

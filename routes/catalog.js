@@ -21,7 +21,7 @@ import {
   author_update_get,
   author_update_post,
   author_detail,
-  author_list,
+  authorList,
 } from "../controllers/authorController.js";
 import {
   genre_create_get,
@@ -97,7 +97,7 @@ router.post("/author/:id/update", author_update_post);
 router.get("/author/:id", author_detail);
 
 // GET request for list of all Authors.
-router.get("/authors", author_list);
+router.get("/authors", authorList);
 
 /// GENRE ROUTES ///
 
