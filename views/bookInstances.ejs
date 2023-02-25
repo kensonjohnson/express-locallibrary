@@ -1,7 +1,7 @@
 <h1><%= title %></h1>
 <ul class="list-group w-auto">
   <% if(data){ data.forEach((instance)=>{ %>
-  <li class="list-group-item list-group-item-action d-flex flex-column gap-3 py-3">
+  <li class="list-group-item list-group-item-action d-flex flex-column py-2">
     <a  href="<%= instance.url %>"><%= instance.book.title %> : <%= instance.imprint %></a>
    <div class="d-flex gap-3">
     <% if(instance.status){ %>

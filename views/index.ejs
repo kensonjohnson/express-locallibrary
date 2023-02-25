@@ -8,19 +8,34 @@
 <p>Error occured while getting content</p>
 <% } else { %>
 <p>The library has the following records:</p>
-<ul>
+<table class="table table-sm w-auto">
   <% if(data.bookCount){ %>
-  <li><strong>Books: </strong><%= data.bookCount %></li>
+  <tr>
+    <td class="pe-3"><strong>Books: </strong></td>
+    <td><%= data.bookCount %></td>
+  </tr>
   <% } if(data.bookInstanceCount){ %>
-  <li><strong>Copies: </strong><%= data.bookInstanceCount %></li>
+  <tr>
+    <td class="pe-3"><strong>Copies: </strong></td>
+    <td><%= data.bookInstanceCount %></td>
+  </tr>
   <% } if(data.bookInstanceAvailableCount){ %>
-  <li>
-    <strong>Copies Available: </strong><%= data.bookInstanceAvailableCount %>
-  </li>
+  <tr>
+    <td class="pe-3">
+      <strong>Copies Available: </strong>
+    </td>
+    <td><%= data.bookInstanceAvailableCount %></td>
+  </tr>
   <% } if(data.authorCount){ %>
-  <li><strong>Authors: </strong><%= data.authorCount %></li>
+  <tr>
+    <td class="pe-3"><strong>Authors: </strong></td>
+    <td><%= data.authorCount %></td>
+  </tr>
   <% } if(data.genreCount){ %>
-  <li><strong>Genres: </strong><%= data.genreCount %></li>
+  <tr>
+    <td class="pe-3"><strong>Genres: </strong></td>
+    <td><%= data.genreCount %></td>
+  </tr>
   <% } %>
-</ul>
+</table>
 <% } %>

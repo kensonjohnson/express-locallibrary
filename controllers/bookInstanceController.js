@@ -3,8 +3,6 @@ import BookInstance from "../models/bookinstance.js";
 // Display list of all BookInstances.
 export async function bookInstanceList(req, res) {
   const allBookInstances = await BookInstance.find().populate("book");
-  console.log(allBookInstances);
-
   res.render("bookInstances", {
     title: "All Book Instances",
     data: allBookInstances,
