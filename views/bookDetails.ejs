@@ -17,12 +17,14 @@
 <ul class="list-group w-auto">
 <% data.bookInstance.forEach((instance)=>{ %>
     <li class="list-group-item list-group-item-action d-flex flex-column py-2">
-        <a  href="<%= instance.url %>"><%= instance.imprint %></a>
+        <span><strong>Imprint: </strong><%= instance.imprint %></span>
        <div class="d-flex gap-3">
         <% if(instance.status){ %>
-        <span class="<%= instance.status === "Available" ? "text-success" : instance.status === "Maintenance" ? "text-danger" : "text-warning" %>"><%= instance.status %></span>    
+        <span class="<%= instance.status === "Available" ? "text-success" : instance.status === "Maintenance" ? "text-danger" : "text-warning" %>"><strong>Status: </strong><%= instance.status %></span>    
         <% } if(instance.status !== "Available"){ %>
-            <span>Due: <%= instance.due_back.toLocaleDateString() %></span>
+            <span><strong>Due Back: </strong><%= instance.due_back.toLocaleDateString() %></span>
+       </div>
+       <span><strong>Id: </strong><a href="<%= instance.url %>"><%= instance._id %></a></span>
       </li>
       <% } %>
 <% }) %>
