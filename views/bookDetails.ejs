@@ -1,0 +1,33 @@
+<% if(data){ %>
+<h1><%= data.book.title %></h1>
+<p>
+  <strong>Author: </strong
+  ><a href="<%=data.book.author.url%>"><%= data.book.author.name %></a>
+</p>
+<p><strong>Summary: </strong><%= data.book.summary %></p>
+<p><strong>ISBN: </strong><%= data.book.isbn %></p>
+<p>
+  <strong>Genre: </strong><% data.book.genre.forEach((genre, index)=>{ %>
+  <a href="<%= genre.url %>"
+    ><%= genre.name %><%= index < data.book.genre.length -1 ? ", ": "" %></a
+  >
+  <% }) %>
+</p>
+<h4>Copies Available</h4>
+<ul class="list-group w-auto">
+<% data.bookInstance.forEach((instance)=>{ %>
+    <li class="list-group-item list-group-item-action d-flex flex-column py-2">
+        <a  href="<%= instance.url %>"><%= instance.imprint %></a>
+       <div class="d-flex gap-3">
+        <% if(instance.status){ %>
+        <span class="<%= instance.status === "Available" ? "text-success" : instance.status === "Maintenance" ? "text-danger" : "text-warning" %>"><%= instance.status %></span>    
+        <% } if(instance.status !== "Available"){ %>
+            <span>Due: <%= instance.due_back.toLocaleDateString() %></span>
+      </li>
+      <% } %>
+<% }) %>
+</ul>
+
+<% } else { %>
+<h1>Book not found</h1>
+<% } %>

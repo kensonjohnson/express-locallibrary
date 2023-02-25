@@ -34,8 +34,22 @@ export async function bookList(req, res) {
 }
 
 // Display detail page for a specific book.
-export function book_detail(req, res) {
-  res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
+export async function bookDetails(req, res, next) {
+  const book = Book.findById(req.params.id)
+    .populate("author")
+    .populate("genre");
+
+  const bookInstance = BookInstance.find({ book: req.params.id });
+
+  const data = { book: await book, bookInstance: await bookInstance };
+
+  if (data === null) {
+    const err = new Error("Book not found.");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("bookDetails", { title: "Book Details", data, page: "books" });
 }
 
 // Display book create form on GET.

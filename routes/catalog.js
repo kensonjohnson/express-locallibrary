@@ -10,7 +10,7 @@ import {
   book_delete_post,
   book_update_get,
   book_update_post,
-  book_detail,
+  bookDetails,
   bookList,
 } from "../controllers/bookController.js";
 import {
@@ -68,7 +68,7 @@ router.get("/books/:id/update", book_update_get);
 router.post("/books/:id/update", book_update_post);
 
 // GET request for one Book.
-router.get("/books/:id", book_detail);
+router.get("/books/:id", bookDetails);
 
 // GET request for list of all Book items.
 router.get("/books", bookList);
