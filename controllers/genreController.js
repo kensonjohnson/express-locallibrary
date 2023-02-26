@@ -16,7 +16,7 @@ export async function genres(req, res) {
 
     res.render("genres", {
       title: "All Genres",
-      data: allGenres,
+      data,
       page: "genres",
     });
   } catch (error) {

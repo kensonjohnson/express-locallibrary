@@ -25,7 +25,11 @@ export async function index(req, res, next) {
       error.status = 404;
       next(error);
     }
-    res.render("index", { title: "Local Library Home", data, page: "home" });
+    res.render("index", {
+      title: "Local Library Home",
+      data,
+      page: "home",
+    });
   } catch (error) {
     res.render("error", { error });
   }
@@ -45,7 +49,11 @@ export async function bookList(req, res) {
       next(error);
     }
 
-    res.render("books", { title: "All Books", data, page: "books" });
+    res.render("books", {
+      title: "All Books",
+      data,
+      page: "books",
+    });
   } catch (error) {
     res.render("error", { error });
   }
