@@ -2,29 +2,46 @@ import BookInstance from "../models/bookinstance.js";
 
 // Display list of all BookInstances.
 export async function bookInstanceList(req, res) {
-  const allBookInstances = await BookInstance.find().populate("book");
-  res.render("bookInstances", {
-    title: "All Book Instances",
-    data: allBookInstances,
-    page: "book instances",
-  });
+  const allBookInstances = BookInstance.find().populate("book");
+  try {
+    const data = await allBookInstances;
+
+    if (data === null) {
+      error = new Error("Server failed to fetch data.");
+      error.status = 404;
+      next(error);
+    }
+
+    res.render("bookInstances", {
+      title: "All Book Instances",
+      data,
+      page: "book instances",
+    });
+  } catch (error) {
+    res.render("error", { error });
+  }
 }
 
 // Display detail page for a specific BookInstance.
 export async function bookinstanceDetails(req, res, next) {
-  const data = await BookInstance.findById(req.params.id).populate("book");
+  const bookInstance = BookInstance.findById(req.params.id).populate("book");
+  try {
+    const data = await bookInstance;
 
-  if (data === null || data === []) {
-    const err = new Error("Book availablity not found");
-    err.status = 404;
-    return next(err);
+    if (data === null || data === []) {
+      const err = new Error("Book availablity not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render("bookInstanceDetails", {
+      title: "Book Availability",
+      data,
+      page: "book instances",
+    });
+  } catch (error) {
+    res.render("error", { error });
   }
-
-  res.render("bookInstanceDetails", {
-    title: "Book Availability",
-    data,
-    page: "book instances",
-  });
 }
 
 // Display BookInstance create form on GET.

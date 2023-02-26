@@ -2,35 +2,49 @@ import Author from "../models/author.js";
 import Book from "../models/book.js";
 
 // Display list of all Authors.
-export async function authors(req, res) {
-  const allAuthors = await Author.find().sort({ family_name: 1 });
-  res.render("authors", {
-    title: "All Authors",
-    data: allAuthors,
-    page: "authors",
-  });
+export async function authors(req, res, next) {
+  const allAuthors = Author.find({}).sort({ family_name: 1 });
+
+  try {
+    const data = await allAuthors;
+
+    if (data === null) {
+      const error = new Error("Author not found");
+      error.status = 404;
+      return next(error);
+    }
+
+    res.render("authors", {
+      title: "All Authors",
+      data,
+      page: "authors",
+    });
+  } catch (error) {
+    res.render("error", { error });
+  }
 }
 
 // Display detail page for a specific Author.
 export async function authorDetails(req, res, next) {
   const author = Author.findById(req.params.id);
   const booksByAuthor = Book.find({ author: req.params.id }, "title summary");
+  try {
+    const data = { author: await author, booksByAuthor: await booksByAuthor };
 
-  const data = { author: await author, booksByAuthor: await booksByAuthor };
+    if (data === null) {
+      const error = new Error("Author not found");
+      error.status = 404;
+      return next(error);
+    }
 
-  console.log(data);
-
-  if (data === null) {
-    const err = new Error("Author not found");
-    err.status = 404;
-    return next(err);
+    res.render("authorDetails", {
+      title: "Author Details",
+      data,
+      page: "authors",
+    });
+  } catch (error) {
+    res.render("error", { error });
   }
-
-  res.render("authorDetails", {
-    title: "Author Details",
-    data,
-    page: "authors",
-  });
 }
 // Display Author create form on GET.
 export function author_create_get(req, res) {

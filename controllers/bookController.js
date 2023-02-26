@@ -3,7 +3,7 @@ import Author from "../models/author.js";
 import Genre from "../models/genre.js";
 import BookInstance from "../models/bookinstance.js";
 
-export async function index(req, res) {
+export async function index(req, res, next) {
   const bookCount = Book.countDocuments({});
   const bookInstanceCount = BookInstance.countDocuments({});
   const bookInstanceAvailableCount = BookInstance.countDocuments({
@@ -11,25 +11,44 @@ export async function index(req, res) {
   });
   const authorCount = Author.countDocuments({});
   const genreCount = Genre.countDocuments({});
+  try {
+    const data = {
+      bookCount: await bookCount,
+      bookInstanceCount: await bookInstanceCount,
+      bookInstanceAvailableCount: await bookInstanceAvailableCount,
+      authorCount: await authorCount,
+      genreCount: await genreCount,
+    };
 
-  const data = {
-    bookCount: await bookCount,
-    bookInstanceCount: await bookInstanceCount,
-    bookInstanceAvailableCount: await bookInstanceAvailableCount,
-    authorCount: await authorCount,
-    genreCount: await genreCount,
-  };
-
-  res.render("index", { title: "Local Library Home", data, page: "home" });
+    if (data === null) {
+      error = new Error("Server failed to fetch data.");
+      error.status = 404;
+      next(error);
+    }
+    res.render("index", { title: "Local Library Home", data, page: "home" });
+  } catch (error) {
+    res.render("error", { error });
+  }
 }
 
 // Display list of all books.
 export async function bookList(req, res) {
-  const allBooks = await Book.find({}, "title author")
+  const allBooks = Book.find({}, "title author")
     .sort({ title: 1 })
     .populate("author");
+  try {
+    const data = await allBooks;
 
-  res.render("books", { title: "All Books", data: allBooks, page: "books" });
+    if (data === null) {
+      error = new Error("Server failed to fetch data.");
+      error.status = 404;
+      next(error);
+    }
+
+    res.render("books", { title: "All Books", data, page: "books" });
+  } catch (error) {
+    res.render("error", { error });
+  }
 }
 
 // Display detail page for a specific book.

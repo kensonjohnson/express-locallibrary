@@ -12,7 +12,6 @@ const app = express();
 
 // Set up mongoose connection
 import mongoose from "mongoose";
-// const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const MONGO_URI = `${process.env.MONGO_URI}?retryWrites=true&w=majority`;
 if (process.env.NODE_ENV === "dev") {
@@ -60,6 +59,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
+  console.log(err);
   // render the error page
   res.status(err.status || 500);
   res.render("error");

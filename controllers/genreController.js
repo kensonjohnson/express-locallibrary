@@ -3,31 +3,48 @@ import Book from "../models/book.js";
 
 // Display list of all Genre.
 export async function genres(req, res) {
-  const allGenres = await Genre.find().sort({ name: 1 });
-  res.render("genres", {
-    title: "All Genres",
-    data: allGenres,
-    page: "genres",
-  });
+  const allGenres = Genre.find().sort({ name: 1 });
+
+  try {
+    const data = await allGenres;
+
+    if (data === null) {
+      const err = new Error("Genre not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render("genres", {
+      title: "All Genres",
+      data: allGenres,
+      page: "genres",
+    });
+  } catch (error) {
+    res.render("error", { error });
+  }
 }
 
 // Display detail page for a specific Genre.
 export async function genreDetails(req, res, next) {
   const genre = Genre.findById(req.params.id);
   const genreBooks = Book.find({ genre: req.params.id });
-  const data = { genre: await genre, genreBooks: await genreBooks };
+  try {
+    const data = { genre: await genre, genreBooks: await genreBooks };
 
-  if (data === null) {
-    const err = new Error("Genre not found");
-    err.status = 404;
-    return next(err);
+    if (data === null) {
+      const err = new Error("Genre not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render("genreDetails", {
+      title: `${req.params.id} Genre Books`,
+      data,
+      page: "genres",
+    });
+  } catch (error) {
+    res.render("error", { error });
   }
-
-  res.render("genreDetails", {
-    title: `${req.params.id} Genre Books`,
-    data,
-    page: "genres",
-  });
 }
 
 // Display Genre create form on GET.
