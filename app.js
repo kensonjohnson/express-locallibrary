@@ -3,6 +3,8 @@ import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+import { createServer } from "livereload";
+import connectLiveReload from "connect-livereload";
 import dotenv from "dotenv";
 dotenv.config();
 import { fileURLToPath, URL } from "url";
@@ -33,6 +35,15 @@ app.set("views", fileURLToPath(new URL("views", import.meta.url)));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 
+// Configure options and middleware
+const liveReloadServer = createServer();
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
+
+app.use(connectLiveReload());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
