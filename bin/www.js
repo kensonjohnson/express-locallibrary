@@ -10,6 +10,7 @@ import debug from "debug";
 const deBugger = debug("express-locallibrary-tutorial:server");
 // const http = require('http');
 import http from "http";
+import { openWithDefaultApplication } from "../open.js";
 
 /**
  * Get port from environment and store in Express.
@@ -85,5 +86,17 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  deBugger("Listening on " + bind);
+  // deBugger("Listening on " + bind);
+  const path = `http://localhost:${addr.port}`;
+  openWithDefaultApplication(path)
+    .then((res) => console.log(`Listening on ${bind}`))
+    .catch(() => {
+      console.log(`\x1b[35mListening on ${bind}\x1b[39m`);
+      console.log(
+        "\x1b[2m\x1b[33mFailed to launch browser automatically.\x1b[0m"
+      );
+      console.log(
+        `You will have to open \x1b[34m${path}\x1b[39m in your browser.`
+      );
+    });
 }
