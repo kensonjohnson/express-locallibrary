@@ -96,7 +96,7 @@ function onListening() {
         "\x1b[2m\x1b[33mFailed to launch browser automatically.\x1b[0m"
       );
       console.log(
-        `You will have to open \x1b[34m${path}\x1b[39m in your browser.`
+        `\x1b[35mYou will have to open \x1b[34m${path}\x1b[35m in your browser.\x1b[39m`
       );
     });
 }
