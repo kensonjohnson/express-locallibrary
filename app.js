@@ -15,13 +15,18 @@ import mongoose from "mongoose";
 // const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const MONGO_URI = `${process.env.MONGO_URI}?retryWrites=true&w=majority`;
-
+if (process.env.NODE_ENV === "dev") {
+  console.log("\x1b[33mConnecting to DB...\x1b[39m");
+}
 mongoose
   .connect(MONGO_URI)
-  .then(console.log("Connected to DB"))
+  .then(console.log("\x1b[33mConnected to DB\x1b[39m"))
   .catch((error) => {
-    console.error("Mongoose exited with Error:\n", error.message);
-    console.error("Is your MongoDB instance running?");
+    console.error(
+      "\x1b[33mMongoose exited with Error:\n\x1b[39m",
+      error.message
+    );
+    console.error("\x1b[33mIs your MongoDB instance running?\x1b[39m");
   });
 
 // view engine setup
