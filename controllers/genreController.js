@@ -52,37 +52,41 @@ export function newGenre(req, res, next) {
 }
 
 // Handle Genre create on POST.
-export const createNewGenre = [
-  body("name", "Genre name required").trim().isLength({ min: 1 }).escape(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    const genre = new Genre({ name: req.body.name });
-    if (!errors.isEmpty()) {
-      res.render("newGenre", {
-        title: "Create Genre",
-        genre,
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      Genre.findOne({ name: req.body.name }).exec((err, foundGenre) => {
-        if (err) {
-          return next(err);
-        }
-        if (foundGenre) {
-          res.redirect(foundGenre.url);
-        } else {
-          genre.save((err) => {
-            if (err) {
-              return next(err);
-            }
-            res.redirect(genre.url);
-          });
-        }
-      });
-    }
-  },
-];
+const validateGenreName = body("name", "Genre name required")
+  .trim()
+  .isLength({ min: 1 })
+  .escape();
+
+const processNewGenre = (req, res, next) => {
+  const errors = validationResult(req);
+  const genre = new Genre({ name: req.body.name });
+  if (!errors.isEmpty()) {
+    res.render("newGenre", {
+      title: "Create Genre",
+      genre,
+      errors: errors.array(),
+    });
+    return;
+  } else {
+    Genre.findOne({ name: req.body.name }).exec((err, foundGenre) => {
+      if (err) {
+        return next(err);
+      }
+      if (foundGenre) {
+        res.redirect(foundGenre.url);
+      } else {
+        genre.save((err) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(genre.url);
+        });
+      }
+    });
+  }
+};
+
+export const createNewGenre = [validateGenreName, processNewGenre];
 
 // Display Genre delete form on GET.
 export function genre_delete_get(req, res) {
