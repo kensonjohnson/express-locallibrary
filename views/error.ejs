@@ -1,5 +1,7 @@
+<% if(error){ %>
 <div class="card mt-3">
   <h1 class="card-header"><%= error.message %></h1>
   <h2 class="card-body"><%= error.status %></h2>
   <pre class="card-body"><%= error.stack %></pre>
 </div>
+<% } %>

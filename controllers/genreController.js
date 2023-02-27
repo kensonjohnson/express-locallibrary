@@ -1,12 +1,11 @@
+import { body, validationResult } from "express-validator";
 import Genre from "../models/genre.js";
 import Book from "../models/book.js";
 
 // Display list of all Genre.
 export async function genres(req, res) {
-  const allGenres = Genre.find().sort({ name: 1 });
-
   try {
-    const data = await allGenres;
+    const data = await Genre.find().sort({ name: 1 });
 
     if (data === null) {
       const err = new Error("Genre not found");
@@ -26,9 +25,9 @@ export async function genres(req, res) {
 
 // Display detail page for a specific Genre.
 export async function genreDetails(req, res, next) {
-  const genre = Genre.findById(req.params.id);
-  const genreBooks = Book.find({ genre: req.params.id });
   try {
+    const genre = Genre.findById(req.params.id);
+    const genreBooks = Book.find({ genre: req.params.id });
     const data = { genre: await genre, genreBooks: await genreBooks };
 
     if (data === null) {
@@ -48,14 +47,42 @@ export async function genreDetails(req, res, next) {
 }
 
 // Display Genre create form on GET.
-export function genre_create_get(req, res) {
-  res.send("NOT IMPLEMENTED: Genre create GET");
+export function newGenre(req, res, next) {
+  res.render("newGenre", { title: "Create Genre" });
 }
 
 // Handle Genre create on POST.
-export function genre_create_post(req, res) {
-  res.send("NOT IMPLEMENTED: Genre create POST");
-}
+export const createNewGenre = [
+  body("name", "Genre name required").trim().isLength({ min: 1 }).escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const genre = new Genre({ name: req.body.name });
+    if (!errors.isEmpty()) {
+      res.render("newGenre", {
+        title: "Create Genre",
+        genre,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      Genre.findOne({ name: req.body.name }).exec((err, foundGenre) => {
+        if (err) {
+          return next(err);
+        }
+        if (foundGenre) {
+          res.redirect(foundGenre.url);
+        } else {
+          genre.save((err) => {
+            if (err) {
+              return next(err);
+            }
+            res.redirect(genre.url);
+          });
+        }
+      });
+    }
+  },
+];
 
 // Display Genre delete form on GET.
 export function genre_delete_get(req, res) {

@@ -24,8 +24,8 @@ import {
   authors,
 } from "../controllers/authorController.js";
 import {
-  genre_create_get,
-  genre_create_post,
+  newGenre,
+  createNewGenre,
   genre_delete_get,
   genre_delete_post,
   genre_update_get,
@@ -102,10 +102,10 @@ router.get("/authors", authors);
 /// GENRE ROUTES ///
 
 // GET request for creating a Genre. NOTE This must come before route that displays Genre (uses id).
-router.get("/genres/create", genre_create_get);
+router.get("/genres/create", newGenre);
 
 //POST request for creating Genre.
-router.post("/genres/create", genre_create_post);
+router.post("/genres/create", createNewGenre);
 
 // GET request to delete Genre.
 router.get("/genres/:id/delete", genre_delete_get);
