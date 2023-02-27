@@ -4,8 +4,8 @@ const router = Router();
 // Require controller modules.
 import {
   index,
-  book_create_get,
-  book_create_post,
+  newBook,
+  createNewBook,
   book_delete_get,
   book_delete_post,
   book_update_get,
@@ -50,10 +50,10 @@ import {
 router.get("/", index);
 
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
-router.get("/books/create", book_create_get);
+router.get("/books/create", newBook);
 
 // POST request for creating Book.
-router.post("/books/create", book_create_post);
+router.post("/books/create", createNewBook);
 
 // GET request to delete Book.
 router.get("/books/:id/delete", book_delete_get);
