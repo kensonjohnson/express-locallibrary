@@ -34,8 +34,8 @@ import {
   genres,
 } from "../controllers/genreController.js";
 import {
-  bookinstance_create_get,
-  bookinstance_create_post,
+  newBookInstance,
+  createNewBookInstance,
   bookinstance_delete_get,
   bookinstance_delete_post,
   bookinstance_update_get,
@@ -128,10 +128,10 @@ router.get("/genres", genres);
 /// BOOKINSTANCE ROUTES ///
 
 // GET request for creating a BookInstance. NOTE This must come before route that displays BookInstance (uses id).
-router.get("/bookinstances/create", bookinstance_create_get);
+router.get("/bookinstances/create", newBookInstance);
 
 // POST request for creating BookInstance.
-router.post("/bookinstances/create", bookinstance_create_post);
+router.post("/bookinstances/create", createNewBookInstance);
 
 // GET request to delete BookInstance.
 router.get("/bookinstances/:id/delete", bookinstance_delete_get);

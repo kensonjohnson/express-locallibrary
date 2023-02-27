@@ -1,7 +1,7 @@
 <% if(data){ %>
     <h1>ID: <%= data._id %></h1>
     <div class="card mt-3">
-        <div class="card-header "><strong>Title: </strong><a href="data.book.url"><%= data.book.title %></a></div>
+        <div class="card-header "><strong>Title: </strong><a href="<%= data.book.url %>"><%= data.book.title %></a></div>
         <div class="card-body "><strong>Imprint: </strong><%= data.imprint %></div>
         <div class="card-footer d-flex gap-3 "><strong>Status: </strong>
             <% if(data.status){ %>
