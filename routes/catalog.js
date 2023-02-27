@@ -14,8 +14,8 @@ import {
   bookList,
 } from "../controllers/bookController.js";
 import {
-  author_create_get,
-  author_create_post,
+  newAuthor,
+  createNewAuthor,
   author_delete_get,
   author_delete_post,
   author_update_get,
@@ -76,10 +76,10 @@ router.get("/books", bookList);
 /// AUTHOR ROUTES ///
 
 // GET request for creating Author. NOTE This must come before route for id (i.e. display author).
-router.get("/authors/create", author_create_get);
+router.get("/authors/create", newAuthor);
 
 // POST request for creating Author.
-router.post("/authors/create", author_create_post);
+router.post("/authors/create", createNewAuthor);
 
 // GET request to delete Author.
 router.get("/authors/:id/delete", author_delete_get);

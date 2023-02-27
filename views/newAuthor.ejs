@@ -1,0 +1,34 @@
+<h1><%= title %></h1>
+
+<form class="border rounded p-3" action="" method="post">
+  <div class="form-group mb-3">
+    <label class="form-label" for="first_name">First Name:</label>
+    <input id="first_name" class="form-control" type="text" name="first_name"
+    required="true" value="<%= locals.author ? author.first_name : "" %>" />
+  </div>
+  <div class="form-group mb-3">
+    <label class="form-label" for="family_name">Last Name:</label>
+    <input id="family_name" class="form-control" type="text" name="family_name"
+    required="true" value="<%= locals.author ? author.family_name : "" %>" />
+  </div>
+  <div class="form-group mb-3">
+    <label class="form-label" for="date_of_birth">Date of Birth:</label>
+    <input id="date_of_birth" class="form-control" type="date"
+    name="date_of_birth" value="<%= locals.author ? author.date_of_birth : ""
+    %>">
+  </div>
+  <div class="form-group mb-3">
+    <label class="form-label" for="date_of_death">Date of Death:</label>
+    <input id="date_of_death" class="form-control" type="date"
+    name="date_of_death" value="<%= locals.author ? author.date_of_death : ""
+    %>">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<% if(locals.errors){ %>
+<ul class="list-group my-4">
+  <% for( const error of errors){ %>
+  <li class="list-group-item list-group-item-warning"><%= error.msg%></li>
+  <% } %>
+</ul>
+<% } %>
