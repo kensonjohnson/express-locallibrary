@@ -9,12 +9,14 @@ export function handlePrompt(path) {
   process.stdin.on("keypress", (str, key) => {
     switch (key.name) {
       case "h":
-        console.log("\x1b[35mAvailable commands: ");
-        console.log("h: Displays this help screen.");
-        console.log("c: Clears the console.");
-        console.log("o: Opens page in default browser.");
-        console.log("q: Quit the application");
-        console.log("\nListening for commands. Enter 'h' for help.\n\x1b[39m");
+        console.log("\x1b[32mAvailable commands:\n");
+        console.log("\x1b[39m    h: \x1b[35mDisplays this help screen.");
+        console.log("\x1b[39m    c: \x1b[35mClears the console.");
+        console.log("\x1b[39m    o: \x1b[35mOpens page in default browser.");
+        console.log("\x1b[39m    q: \x1b[35mQuit the application");
+        console.log(
+          "\n\x1b[32mListening for commands. Enter 'h' for help.\n\x1b[39m"
+        );
         break;
 
       case "c":
@@ -24,15 +26,15 @@ export function handlePrompt(path) {
         }
         console.clear();
         console.log(
-          "\x1b[35mListening for commands. Enter 'h' for help.\n\x1b[39m"
+          "\x1b[32mListening for commands. Enter 'h' for help.\n\x1b[39m"
         );
         break;
 
       case "o":
-        console.log("\x1b[35mOpening in default browser.");
+        console.log("\x1b[32mOpening in default browser.");
         open(path);
         console.log("If your browser does not open, you must");
-        console.log(`manually navigate to: \x1b[94m${path}\x1b[35m`);
+        console.log(`manually navigate to: \x1b[94m${path}\x1b[32m`);
         console.log("Listening for commands. Enter 'h' for help.\n\x1b[39m");
         break;
 
@@ -42,5 +44,5 @@ export function handlePrompt(path) {
         process.exit(0);
     }
   });
-  console.log("\x1b[35mListening for commands. Enter 'h' for help.\n\x1b[39m");
+  console.log("\x1b[32mListening for commands. Enter 'h' for help.\n\x1b[39m");
 }
