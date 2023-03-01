@@ -52,11 +52,9 @@ app.use(express.static(fileURLToPath(new URL("public", import.meta.url))));
 
 //-------------------- Routes --------------------//
 import indexRouter from "./routes/index.js";
-import usersRouter from "./routes/users.js";
 import catalogRouter from "./routes/catalog.js";
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/catalog", catalogRouter);
 
 // catch 404 and forward to error handler
