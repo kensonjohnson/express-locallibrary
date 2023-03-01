@@ -29,7 +29,11 @@
       <% } %>
 <% }) %>
 </ul>
-
+<hr>
+<div class="d-flex gap-5">
+  <p><a href="<%= data.book.url %>/delete">Delete Book</a></p>
+  <p><a href="<%= data.book.url %>/update">Update Book</a></p>
+</div>
 <% } else { %>
 <h1>Book not found</h1>
 <% } %>

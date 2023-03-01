@@ -8,8 +8,8 @@ import {
   createNewBook,
   book_delete_get,
   book_delete_post,
-  book_update_get,
-  book_update_post,
+  updateBookForm,
+  updateBookSubmit,
   bookDetails,
   bookList,
 } from "../controllers/bookController.js";
@@ -62,10 +62,10 @@ router.get("/books/:id/delete", book_delete_get);
 router.post("/books/:id/delete", book_delete_post);
 
 // GET request to update Book.
-router.get("/books/:id/update", book_update_get);
+router.get("/books/:id/update", updateBookForm);
 
 // POST request to update Book.
-router.post("/books/:id/update", book_update_post);
+router.post("/books/:id/update", updateBookSubmit);
 
 // GET request for one Book.
 router.get("/books/:id", bookDetails);

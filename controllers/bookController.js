@@ -165,8 +165,7 @@ const processNewBook = async (req, res, next) => {
 
       res.render("newBook", {
         title: "Create Book",
-        authors,
-        genres,
+        data,
         book,
         errors: errors.array(),
       });
@@ -206,11 +205,106 @@ export function book_delete_post(req, res) {
 }
 
 // Display book update form on GET.
-export function book_update_get(req, res) {
-  res.send("NOT IMPLEMENTED: Book update GET");
+export async function updateBookForm(req, res, next) {
+  try {
+    const book = Book.findById(req.params.id)
+      .populate("author")
+      .populate("genre");
+    const authors = Author.find();
+    const genres = Genre.find();
+    const data = {
+      book: await book,
+      authors: await authors,
+      genres: await genres,
+    };
+
+    if (data.book === null) {
+      const error = new Error("Book not found.");
+      error.status = 404;
+      return next(error);
+    }
+    for (const genre of data.genres) {
+      for (const bookGenre of data.book.genre) {
+        if (genre._id.toString() === bookGenre._id.toString()) {
+          genre.checked = "true";
+        }
+      }
+    }
+    res.render("newBook", {
+      title: "Update Book",
+      data,
+      book: data.book,
+    });
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Handle book update on POST.
-export function book_update_post(req, res) {
-  res.send("NOT IMPLEMENTED: Book update POST");
-}
+const processUpdateBook = async (req, res, next) => {
+  // Extract the validation errors from a request.
+  const errors = validationResult(req);
+
+  // Create a Book object with escaped and trimmed data.
+  const book = new Book({
+    title: req.body.title,
+    author: req.body.author,
+    summary: req.body.summary,
+    isbn: req.body.isbn,
+    genre: req.body.genre === undefined ? [] : req.body.genre,
+    _id: req.params.id,
+  });
+
+  if (!errors.isEmpty()) {
+    // There are errors. Render form again with sanitized values/error messages.
+
+    // Get all authors and genres for form.
+
+    try {
+      const authors = await Author.find({}, "first_name family_name").sort({
+        family_name: 1,
+      });
+      const genres = await Genre.find();
+      if (!authors || !genres) {
+        const error = new Error("Failed to fetch new book data.");
+        error.status = 404;
+        return next(error);
+      }
+
+      for (const genre of genres) {
+        if (book.genre.includes(genre._id)) {
+          genre.checked = "true";
+        }
+      }
+      const data = { authors, genres };
+
+      res.render("newBook", {
+        title: "Create Book",
+        data,
+        book,
+        errors: errors.array(),
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  // Data from form is valid. Save book.
+  Book.findByIdAndUpdate(req.params.id, book, {}, (error, updatedBook) => {
+    if (error) {
+      return next(error);
+    }
+    // Successful: redirect to new book record.
+    res.redirect(updatedBook.url);
+  });
+};
+
+export const updateBookSubmit = [
+  genreToArray,
+  validateBookTitle,
+  validateBookAuthor,
+  validateBookSummary,
+  validateBookISBN,
+  validateBookGenre,
+  processUpdateBook,
+];
