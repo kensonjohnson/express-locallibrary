@@ -149,7 +149,6 @@ export async function deleteAuthorSubmit(req, res, next) {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("error", error);
   }
 }

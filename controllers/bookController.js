@@ -195,13 +195,54 @@ export const createNewBook = [
 ];
 
 // Display book delete form on GET.
-export function book_delete_get(req, res) {
-  res.send("NOT IMPLEMENTED: Book delete GET");
+export async function book_delete_get(req, res) {
+  try {
+    const book = Book.findById(req.params.id)
+      .populate("author")
+      .populate("genre");
+
+    const bookInstances = BookInstance.find({ book: req.params.id });
+
+    const data = { book: await book, bookInstances: await bookInstances };
+
+    if (!data.book) {
+      const err = new Error("Book not found.");
+      err.status = 404;
+      return next(err);
+    }
+
+    if (!data.bookInstances) {
+      data.bookInstances = [];
+    }
+
+    res.render("deleteBook", { title: "Delete Book", data });
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Handle book delete on POST.
-export function book_delete_post(req, res) {
-  res.send("NOT IMPLEMENTED: Book delete POST");
+export async function book_delete_post(req, res, next) {
+  try {
+    const book = Book.findById(req.params.id);
+    const bookInstances = BookInstance.find({ book: req.params.id });
+    const data = { book: await book, bookInstances: await bookInstances };
+    if (!data.book) {
+      res.redirect("/catalog/books", { title: "All Books" });
+    }
+    if (data.bookInstances && data.bookInstances.length > 0) {
+      res.render("deleteBook", { title: "Delete Book", data });
+    } else {
+      Book.findByIdAndDelete(req.body.bookid, (error) => {
+        if (error) {
+          return next(error);
+        }
+        res.redirect("/catalog/books", { title: "All Books" });
+      });
+    }
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Display book update form on GET.
