@@ -16,8 +16,8 @@ import {
 import {
   newAuthor,
   createNewAuthor,
-  author_delete_get,
-  author_delete_post,
+  deleteAuthorForm,
+  deleteAuthorSubmit,
   author_update_get,
   author_update_post,
   authorDetails,
@@ -82,10 +82,10 @@ router.get("/authors/create", newAuthor);
 router.post("/authors/create", createNewAuthor);
 
 // GET request to delete Author.
-router.get("/authors/:id/delete", author_delete_get);
+router.get("/authors/:id/delete", deleteAuthorForm);
 
 // POST request to delete Author.
-router.post("/authors/:id/delete", author_delete_post);
+router.post("/authors/:id/delete", deleteAuthorSubmit);
 
 // GET request to update Author.
 router.get("/authors/:id/update", author_update_get);

@@ -93,9 +93,9 @@ const processNewAuthor = (req, res, next) => {
       date_of_birth: req.body.date_of_birth,
       date_of_death: req.body.date_of_death,
     });
-    author.save((err) => {
-      if (err) {
-        return next(err);
+    author.save((error) => {
+      if (error) {
+        return next(error);
       }
       res.redirect(author.url);
     });
@@ -110,13 +110,48 @@ export const createNewAuthor = [
 ];
 
 // Display Author delete form on GET.
-export function author_delete_get(req, res) {
-  res.send("NOT IMPLEMENTED: Author delete GET");
+export async function deleteAuthorForm(req, res) {
+  try {
+    const author = Author.findById(req.params.id);
+    const booksByAuthor = Book.find({ author: req.params.id });
+    const data = { author: await author, booksByAuthor: await booksByAuthor };
+    if (author === null) {
+      res.redirect("catalog/authors");
+    }
+    res.render("deleteAuthor", {
+      title: "Delete Author",
+      data,
+    });
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Handle Author delete on POST.
-export function author_delete_post(req, res) {
-  res.send("NOT IMPLEMENTED: Author delete POST");
+export async function deleteAuthorSubmit(req, res, next) {
+  try {
+    const author = Author.findById(req.body.authorid);
+    const booksByAuthor = Book.find({ author: req.body.authorid });
+    const data = { author: await author, booksByAuthor: await booksByAuthor };
+
+    if (data.booksByAuthor.length > 0) {
+      res.render("deleteAuthor", {
+        title: "Delete Author",
+        data,
+      });
+      return;
+    } else {
+      Author.findByIdAndDelete(req.body.authorid, (error) => {
+        if (error) {
+          return next(error);
+        }
+        res.redirect("/catalog/authors");
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.render("error", error);
+  }
 }
 
 // Display Author update form on GET.

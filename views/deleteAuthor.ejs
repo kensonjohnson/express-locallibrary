@@ -1,0 +1,34 @@
+<h1><%= title %>: <%= data.author.name %></h1>
+
+<% if(data.booksByAuthor.length > 0){ %>
+<p>
+  <strong
+    >Delete the following books before attempting to delete this author.</strong
+  >
+</p>
+
+<h4>Books</h4>
+<ul class="list-group w-auto">
+  <% data.booksByAuthor.forEach((book)=>{ %>
+  <li class="list-group-item list-group-item-action d-flex gap-3 py-1">
+    <%= book.author.name %>
+    <div class="vr"></div>
+    <a href="<%= book.url %>"><%= book.title %></a>
+  </li>
+  <% }) %>
+</ul>
+
+<% } else { %>
+<p>Do you really want to delete this author?</p>
+<form class="form-group" action="" method="post">
+  <input
+    type="hidden"
+    id="authorid"
+    class="form-control"
+    name="authorid"
+    required
+    value="<%= data.author._id %>"
+  />
+  <button class="btn btn-primary" type="submit">Delete</button>
+</form>
+<% } %>
