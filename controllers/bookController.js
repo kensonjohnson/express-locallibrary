@@ -232,14 +232,13 @@ export async function book_delete_post(req, res, next) {
     }
     if (data.bookInstances && data.bookInstances.length > 0) {
       res.render("deleteBook", { title: "Delete Book", data });
-    } else {
-      Book.findByIdAndDelete(req.body.bookid, (error) => {
-        if (error) {
-          return next(error);
-        }
-        res.redirect("/catalog/books", { title: "All Books" });
-      });
     }
+    Book.findByIdAndDelete(req.body.bookid, (error) => {
+      if (error) {
+        return next(error);
+      }
+      res.redirect("/catalog/books", { title: "All Books" });
+    });
   } catch (error) {
     res.render("error", error);
   }
