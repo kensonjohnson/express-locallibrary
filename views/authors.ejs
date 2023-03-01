@@ -6,10 +6,8 @@
     <a href="<%= author.url %>"><%= author.name %></a>
     <div class="vr"></div>
     <span
-      ><%= author.date_of_birth ?
-      author.date_of_birth.toLocaleDateString():"Unknown"
-      %><%=author.date_of_death? ` -
-      ${author.date_of_death.toLocaleDateString()}`:"" %></span
+      ><%= author.date_of_birth ? author.local_dob:"Unknown"
+      %><%=author.date_of_death? ` - ${author.local_dod}`:"" %></span
     >
   </li>
   <% })} else { %>

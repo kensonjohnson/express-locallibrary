@@ -23,6 +23,38 @@ AuthorSchema.virtual("name").get(function () {
   return fullname;
 });
 
+AuthorSchema.virtual("formatted_dob").get(function () {
+  let dob = "";
+  if (this.date_of_birth) {
+    dob = this.date_of_birth.toISOString().slice(0, 10);
+  }
+  return dob;
+});
+
+AuthorSchema.virtual("formatted_dod").get(function () {
+  let dod = "";
+  if (this.date_of_death) {
+    dod = this.date_of_death.toISOString().slice(0, 10);
+  }
+  return dod;
+});
+
+AuthorSchema.virtual("local_dob").get(function () {
+  let dob = "";
+  if (this.date_of_birth) {
+    dob = this.date_of_birth.toISOString().slice(0, 10);
+  }
+  return dob;
+});
+
+AuthorSchema.virtual("local_dod").get(function () {
+  let dod = "";
+  if (this.date_of_death) {
+    dod = this.date_of_death.toISOString().slice(0, 10);
+  }
+  return dod;
+});
+
 // Virtual for author's URL
 AuthorSchema.virtual("url").get(function () {
   // We don't use an arrow function as we'll need the this object

@@ -18,8 +18,8 @@ import {
   createNewAuthor,
   deleteAuthorForm,
   deleteAuthorSubmit,
-  author_update_get,
-  author_update_post,
+  updateAuthorForm,
+  updateAuthorSubmit,
   authorDetails,
   authors,
 } from "../controllers/authorController.js";
@@ -88,10 +88,10 @@ router.get("/authors/:id/delete", deleteAuthorForm);
 router.post("/authors/:id/delete", deleteAuthorSubmit);
 
 // GET request to update Author.
-router.get("/authors/:id/update", author_update_get);
+router.get("/authors/:id/update", updateAuthorForm);
 
 // POST request to update Author.
-router.post("/authors/:id/update", author_update_post);
+router.post("/authors/:id/update", updateAuthorSubmit);
 
 // GET request for one Author.
 router.get("/authors/:id", authorDetails);

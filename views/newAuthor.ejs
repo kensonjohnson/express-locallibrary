@@ -14,13 +14,13 @@
   <div class="form-group mb-3">
     <label class="form-label" for="date_of_birth">Date of Birth:</label>
     <input id="date_of_birth" class="form-control" type="date"
-    name="date_of_birth" value="<%= locals.author ? author.date_of_birth : ""
+    name="date_of_birth" value="<%= locals.author ? author.formatted_dob : ""
     %>">
   </div>
   <div class="form-group mb-3">
     <label class="form-label" for="date_of_death">Date of Death:</label>
     <input id="date_of_death" class="form-control" type="date"
-    name="date_of_death" value="<%= locals.author ? author.date_of_death : ""
+    name="date_of_death" value="<%= locals.author ? author.formatted_dod : ""
     %>">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

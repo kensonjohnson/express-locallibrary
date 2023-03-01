@@ -145,7 +145,7 @@ export async function deleteAuthorSubmit(req, res, next) {
         if (error) {
           return next(error);
         }
-        res.redirect("/catalog/authors");
+        res.redirect("/catalog/authors", { title: "All Authors" });
       });
     }
   } catch (error) {
@@ -155,11 +155,54 @@ export async function deleteAuthorSubmit(req, res, next) {
 }
 
 // Display Author update form on GET.
-export function author_update_get(req, res) {
-  res.send("NOT IMPLEMENTED: Author update GET");
+export async function updateAuthorForm(req, res) {
+  try {
+    const author = await Author.findById(req.params.id);
+    if (author === null) {
+      res.redirect("/catalog/authors", { title: "All Authors" });
+    }
+    res.render("newAuthor", { title: "Update Author", author });
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Handle Author update on POST.
-export function author_update_post(req, res) {
-  res.send("NOT IMPLEMENTED: Author update POST");
-}
+const processUpdateAuthor = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.render("newAuthor", {
+      title: "Create Author",
+      author: req.body,
+      errors: errors.array(),
+    });
+    return;
+  } else {
+    const author = new Author({
+      first_name: req.body.first_name,
+      family_name: req.body.family_name,
+      date_of_birth: req.body.date_of_birth,
+      date_of_death: req.body.date_of_death,
+      _id: req.params.id,
+    });
+    Author.findByIdAndUpdate(
+      req.params.id,
+      author,
+      {},
+      (error, updatedAuthor) => {
+        if (error) {
+          return next(error);
+        }
+        res.redirect(updatedAuthor.url);
+      }
+    );
+  }
+};
+
+export const updateAuthorSubmit = [
+  validateAuthorFirstName,
+  validateAuthorFamilyName,
+  validateAuthorDateOfBirth,
+  validateAuthorDateOfDeath,
+  processUpdateAuthor,
+];

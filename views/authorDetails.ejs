@@ -1,9 +1,8 @@
 <% if(data && data.author){ %>
 <h1>Author: <%= data.author.name %></h1>
 <p>
-  <%= data.author.date_of_birth ? data.author.date_of_birth.toLocaleDateString()
-  : "Unknown" %><%= data.author.date_of_death ? ` -
-  ${data.author.date_of_death.toLocaleDateString()}` : ""%>
+  <%= data.author.date_of_birth ? data.author.local_dob : "Unknown" %><%=
+  data.author.date_of_death ? ` - ${data.author.local_dod}` : ""%>
 </p>
 <hr />
 <h4>Books</h4>
@@ -25,3 +24,4 @@
 <% } %>
 <hr />
 <p><a href="<%= data.author.url %>/delete">Delete Author</a></p>
+<p><a href="<%= data.author.url %>/update">Update Author</a></p>
