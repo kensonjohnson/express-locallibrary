@@ -28,8 +28,8 @@ import {
   createNewGenre,
   genre_delete_get,
   genre_delete_post,
-  genre_update_get,
-  genre_update_post,
+  updateGenreForm,
+  updateGenreSubmit,
   genreDetails,
   genres,
 } from "../controllers/genreController.js";
@@ -114,10 +114,10 @@ router.get("/genres/:id/delete", genre_delete_get);
 router.post("/genres/:id/delete", genre_delete_post);
 
 // GET request to update Genre.
-router.get("/genres/:id/update", genre_update_get);
+router.get("/genres/:id/update", updateGenreForm);
 
 // POST request to update Genre.
-router.post("/genres/:id/update", genre_update_post);
+router.post("/genres/:id/update", updateGenreSubmit);
 
 // GET request for one Genre.
 router.get("/genres/:id", genreDetails);
