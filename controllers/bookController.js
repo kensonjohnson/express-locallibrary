@@ -2,7 +2,7 @@ import { body, validationResult } from "express-validator";
 import Book from "../models/book.js";
 import Author from "../models/author.js";
 import Genre from "../models/genre.js";
-import BookInstance from "../models/bookinstance.js";
+import BookInstance from "../models/bookInstance.js";
 
 export async function index(req, res, next) {
   const bookCount = Book.countDocuments({});
@@ -195,7 +195,7 @@ export const createNewBook = [
 ];
 
 // Display book delete form on GET.
-export async function book_delete_get(req, res) {
+export async function deleteBook(req, res) {
   try {
     const book = Book.findById(req.params.id)
       .populate("author")
@@ -222,7 +222,7 @@ export async function book_delete_get(req, res) {
 }
 
 // Handle book delete on POST.
-export async function book_delete_post(req, res, next) {
+export async function deleteBookSubmit(req, res, next) {
   try {
     const book = Book.findById(req.params.id);
     const bookInstances = BookInstance.find({ book: req.params.id });

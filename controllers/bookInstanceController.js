@@ -1,5 +1,5 @@
 import { body, validationResult } from "express-validator";
-import BookInstance from "../models/bookinstance.js";
+import BookInstance from "../models/bookInstance.js";
 import Book from "../models/book.js";
 
 // Display list of all BookInstances.
@@ -81,7 +81,7 @@ const processNewBookInstance = (req, res, next) => {
   const errors = validationResult(req);
 
   // Create a BookInstance object with escaped and trimmed data.
-  const bookinstance = new BookInstance({
+  const bookInstance = new BookInstance({
     book: req.body.book,
     imprint: req.body.imprint,
     status: req.body.status,
@@ -100,21 +100,21 @@ const processNewBookInstance = (req, res, next) => {
         res.render("newBookInstance", {
           title: "Add Book to Library Inventory",
           books,
-          selectedBook: bookinstance.book._id,
+          selectedBook: bookInstance.book._id,
           errors: errors.array(),
-          bookinstance,
+          bookInstance,
         });
       });
     return;
   }
 
   // Data from form is valid.
-  bookinstance.save((error) => {
+  bookInstance.save((error) => {
     if (error) {
       return next(error);
     }
     // Successful: redirect to new record.
-    res.redirect(bookinstance.url);
+    res.redirect(bookInstance.url);
   });
 };
 
@@ -127,9 +127,7 @@ export const createNewBookInstance = [
 ];
 
 // Display BookInstance delete form on GET.
-export function bookinstance_delete_get(req, res) {
-  res.send("NOT IMPLEMENTED: BookInstance delete GET");
-}
+export async function bookinstance_delete_get(req, res, next) {}
 
 // Handle BookInstance delete on POST.
 export function bookinstance_delete_post(req, res) {
@@ -137,11 +135,80 @@ export function bookinstance_delete_post(req, res) {
 }
 
 // Display BookInstance update form on GET.
-export function bookinstance_update_get(req, res) {
-  res.send("NOT IMPLEMENTED: BookInstance update GET");
+export async function updateBookInstanceForm(req, res, next) {
+  try {
+    const books = Book.find({}, "title").sort({ title: 1 });
+    const bookInstance = BookInstance.findById(req.params.id);
+    const data = { books: await books, bookInstance: await bookInstance };
+    if (bookInstance === null) {
+      const error = new Error("Book instance not found.");
+      error.status = 404;
+      next(error);
+    }
+    res.render("newBookInstance", {
+      title: "Update Book Copy",
+      bookinstance: data.bookInstance,
+      books: data.books,
+      selectedBook: data.bookInstance.book._id,
+    });
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
-// Handle bookinstance update on POST.
-export function bookinstance_update_post(req, res) {
-  res.send("NOT IMPLEMENTED: BookInstance update POST");
-}
+// Handle bookInstance update on POST.
+const processUpdateBookInstance = (req, res, next) => {
+  // Extract the validation errors from a request.
+  const errors = validationResult(req);
+
+  // Create a BookInstance object with escaped and trimmed data.
+  const bookInstance = new BookInstance({
+    book: req.body.book,
+    imprint: req.body.imprint,
+    status: req.body.status,
+    due_back: req.body.due_back,
+    _id: req.params.id,
+  });
+
+  if (!errors.isEmpty()) {
+    // There are errors. Render form again with sanitized values and error messages.
+    Book.find({}, "title")
+      .sort({ title: 1 })
+      .exec(function (error, books) {
+        if (error) {
+          return next(error);
+        }
+        // Successful, so render.
+        res.render("newBookInstance", {
+          title: "Update Book Copy",
+          books,
+          selectedBook: bookInstance.book._id,
+          errors: errors.array(),
+          bookInstance,
+        });
+      });
+    return;
+  }
+
+  // Data from form is valid.
+  BookInstance.findByIdAndUpdate(
+    req.params.id,
+    bookInstance,
+    {},
+    (error, updatedCopy) => {
+      if (error) {
+        return next(error);
+      }
+      // Successful: redirect to new record.
+      res.redirect(updatedCopy.url);
+    }
+  );
+};
+
+export const updateBookInstanceSubmit = [
+  validateBookSelection,
+  validateImprint,
+  validateStatus,
+  validateDueBack,
+  processUpdateBookInstance,
+];

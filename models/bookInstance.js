@@ -20,5 +20,13 @@ BookInstanceSchema.virtual("url").get(function () {
   return `/catalog/bookinstances/${this._id}`;
 });
 
+BookInstanceSchema.virtual("formatted_due_date").get(function () {
+  let date = "";
+  if (this.due_back) {
+    date = this.due_back.toISOString().slice(0, 10);
+  }
+  return date;
+});
+
 // Export model
 export default model("BookInstance", BookInstanceSchema);

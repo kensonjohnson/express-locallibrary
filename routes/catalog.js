@@ -6,8 +6,8 @@ import {
   index,
   newBook,
   createNewBook,
-  book_delete_get,
-  book_delete_post,
+  deleteBook,
+  deleteBookSubmit,
   updateBookForm,
   updateBookSubmit,
   bookDetails,
@@ -38,8 +38,8 @@ import {
   createNewBookInstance,
   bookinstance_delete_get,
   bookinstance_delete_post,
-  bookinstance_update_get,
-  bookinstance_update_post,
+  updateBookInstanceForm,
+  updateBookInstanceSubmit,
   bookinstanceDetails,
   bookInstanceList,
 } from "../controllers/bookInstanceController.js";
@@ -56,10 +56,10 @@ router.get("/books/create", newBook);
 router.post("/books/create", createNewBook);
 
 // GET request to delete Book.
-router.get("/books/:id/delete", book_delete_get);
+router.get("/books/:id/delete", deleteBook);
 
 // POST request to delete Book.
-router.post("/books/:id/delete", book_delete_post);
+router.post("/books/:id/delete", deleteBookSubmit);
 
 // GET request to update Book.
 router.get("/books/:id/update", updateBookForm);
@@ -140,10 +140,10 @@ router.get("/bookinstances/:id/delete", bookinstance_delete_get);
 router.post("/bookinstances/:id/delete", bookinstance_delete_post);
 
 // GET request to update BookInstance.
-router.get("/bookinstances/:id/update", bookinstance_update_get);
+router.get("/bookinstances/:id/update", updateBookInstanceForm);
 
 // POST request to update BookInstance.
-router.post("/bookinstances/:id/update", bookinstance_update_post);
+router.post("/bookinstances/:id/update", updateBookInstanceSubmit);
 
 // GET request for one BookInstance.
 router.get("/bookinstances/:id", bookinstanceDetails);
