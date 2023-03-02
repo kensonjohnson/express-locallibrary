@@ -127,11 +127,31 @@ export const createNewBookInstance = [
 ];
 
 // Display BookInstance delete form on GET.
-export async function bookinstance_delete_get(req, res, next) {}
+export async function deleteCopy(req, res, next) {
+  BookInstance.findById(req.params.id)
+    .populate("book")
+    .exec((error, bookInstance) => {
+      if (error) {
+        return next(error);
+      }
+      if (bookInstance === null) {
+        res.redirect("/catalog/bookinstances");
+      }
+      res.render("deleteCopy", {
+        title: "Delete Book Copy",
+        data: bookInstance,
+      });
+    });
+}
 
 // Handle BookInstance delete on POST.
-export function bookinstance_delete_post(req, res) {
-  res.send("NOT IMPLEMENTED: BookInstance delete POST");
+export function processDeleteCopy(req, res) {
+  BookInstance.findByIdAndRemove(req.body.id, (error) => {
+    if (error) {
+      return next(error);
+    }
+    res.redirect("/catalog/bookinstances");
+  });
 }
 
 // Display BookInstance update form on GET.

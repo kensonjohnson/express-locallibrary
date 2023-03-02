@@ -36,8 +36,8 @@ import {
 import {
   newBookInstance,
   createNewBookInstance,
-  bookinstance_delete_get,
-  bookinstance_delete_post,
+  deleteCopy,
+  processDeleteCopy,
   updateBookInstanceForm,
   updateBookInstanceSubmit,
   bookinstanceDetails,
@@ -134,10 +134,10 @@ router.get("/bookinstances/create", newBookInstance);
 router.post("/bookinstances/create", createNewBookInstance);
 
 // GET request to delete BookInstance.
-router.get("/bookinstances/:id/delete", bookinstance_delete_get);
+router.get("/bookinstances/:id/delete", deleteCopy);
 
 // POST request to delete BookInstance.
-router.post("/bookinstances/:id/delete", bookinstance_delete_post);
+router.post("/bookinstances/:id/delete", processDeleteCopy);
 
 // GET request to update BookInstance.
 router.get("/bookinstances/:id/update", updateBookInstanceForm);
