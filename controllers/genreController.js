@@ -89,13 +89,50 @@ const processNewGenre = (req, res, next) => {
 export const createNewGenre = [validateGenreName, processNewGenre];
 
 // Display Genre delete form on GET.
-export function genre_delete_get(req, res) {
-  res.send("NOT IMPLEMENTED: Genre delete GET");
+export async function deleteGenre(req, res) {
+  try {
+    const genre = Genre.findById(req.params.id);
+    const booksInGenre = Book.find({ genre: req.params.id }).populate("author");
+    const data = { genre: await genre, booksInGenre: await booksInGenre };
+    if (data.genre === null) {
+      const error = new Error("Genre not found");
+      error.status = 404;
+      return next(error);
+    }
+
+    res.render("deleteGenre", {
+      title: "Delete Genre",
+      data,
+    });
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Handle Genre delete on POST.
-export function genre_delete_post(req, res) {
-  res.send("NOT IMPLEMENTED: Genre delete POST");
+export async function deleteGenreSubmit(req, res) {
+  try {
+    const genre = Genre.findById(req.body.genreid);
+    const booksInGenre = Book.find({ genre: req.body.genreid });
+    const data = { genre: await genre, booksInGenre: await booksInGenre };
+
+    if (data.booksInGenre && data.booksInGenre.length > 0) {
+      res.render("deleteGenre", {
+        title: "Delete Genre",
+        data,
+      });
+      return;
+    } else {
+      Genre.findByIdAndDelete(req.body.genreid, (error) => {
+        if (error) {
+          return next(error);
+        }
+        res.redirect("/catalog/genres");
+      });
+    }
+  } catch (error) {
+    res.render("error", error);
+  }
 }
 
 // Display Genre update form on GET.

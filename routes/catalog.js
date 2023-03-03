@@ -26,8 +26,8 @@ import {
 import {
   newGenre,
   createNewGenre,
-  genre_delete_get,
-  genre_delete_post,
+  deleteGenre,
+  deleteGenreSubmit,
   updateGenreForm,
   updateGenreSubmit,
   genreDetails,
@@ -108,10 +108,10 @@ router.get("/genres/create", newGenre);
 router.post("/genres/create", createNewGenre);
 
 // GET request to delete Genre.
-router.get("/genres/:id/delete", genre_delete_get);
+router.get("/genres/:id/delete", deleteGenre);
 
 // POST request to delete Genre.
-router.post("/genres/:id/delete", genre_delete_post);
+router.post("/genres/:id/delete", deleteGenreSubmit);
 
 // GET request to update Genre.
 router.get("/genres/:id/update", updateGenreForm);

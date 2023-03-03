@@ -145,7 +145,7 @@ export async function deleteAuthorSubmit(req, res, next) {
         if (error) {
           return next(error);
         }
-        res.redirect("/catalog/authors", { title: "All Authors" });
+        res.redirect("/catalog/authors");
       });
     }
   } catch (error) {
