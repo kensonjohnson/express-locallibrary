@@ -13,7 +13,8 @@ export function handlePrompt(path) {
         console.log("\x1b[39m    h: \x1b[35mDisplays this help screen.");
         console.log("\x1b[39m    c: \x1b[35mClears the console.");
         console.log("\x1b[39m    o: \x1b[35mOpens page in default browser.");
-        console.log("\x1b[39m    q: \x1b[35mQuit the application");
+        console.log("\x1b[39m   rs: \x1b[35mRestart the server.");
+        console.log("\x1b[39m    q: \x1b[35mQuit the application.");
         console.log(
           "\n\x1b[32mListening for commands. Enter 'h' for help.\n\x1b[39m"
         );

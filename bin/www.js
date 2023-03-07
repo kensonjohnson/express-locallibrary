@@ -18,9 +18,11 @@ server.listen(port);
 server.on("error", onError);
 const addr = server.address();
 const serverURL = `http://localhost:${addr.port}`;
-server.on("listening", () => {
-  handlePrompt(serverURL);
-});
+if (process.env.NODE_ENV === "dev") {
+  server.on("listening", () => {
+    handlePrompt(serverURL);
+  });
+}
 
 // Normalize a port into a number, string, or false.
 
