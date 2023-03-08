@@ -3,9 +3,6 @@
 A Library managment system built with ExpressJS, Bootstrap 5, and MongoDB.
 Currently, there is no login needed to test out the features of the website.
 
-## Demo
-The live site can be found [here](https://library-manager.onrender.com/ "Link to demo on Render").
-
 ![HTML]
 ![CSS]
 ![JavaScript]
@@ -13,7 +10,8 @@ The live site can be found [here](https://library-manager.onrender.com/ "Link to
 [![Express][express]][express-url]
 [![Bootstrap][bootstrap]][bootstrap-url]
 
-<!-- GETTING STARTED -->
+## Demo
+The live site can be found [here](https://library-manager.onrender.com/ "Link to demo on Render").
 
 ## Getting Started
 
