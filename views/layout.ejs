@@ -1,84 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Library App</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="/bootstrap/icons/bootstrap-icons.css" />
-    <script src="/bootstrap/js/bootstrap.bundle.js" defer></script>
-  </head>
-  <body class="h-100">
-    <div class="container-fluid h-100">
-      <div class="row h-100">
-        <div
-          class="sidebar-nav col-sm-3 d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-        >
-          <a
-            href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto gap-3 text-white text-decoration-none"
-            ><i class="bi bi-book fs-4"></i>
-            <span class="fs-4">Local Library</span>
-          </a>
-          <hr />
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link text-white <% if(locals.page && page === "home"){ %><%= "active" %><% } %>" href="/catalog"
-                ><i class="bi bi-house"></i> Home
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white <% if(locals.page && page === "books"){ %><%= "active" %><% } %>" href="/catalog/books">
-                <i class="bi bi-bookshelf"></i> Books
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white <% if(locals.page && page === "authors"){ %><%= "active" %><% } %>" href="/catalog/authors">
-                <i class="bi bi-person-lines-fill"></i> Authors
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white <% if(locals.page && page === "genres"){ %><%= "active" %><% } %>" href="/catalog/genres">
-                <i class="bi bi-list"></i> Genres
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white <% if(locals.page && page === "book instances"){ %><%= "active" %><% } %>" href="/catalog/bookinstances">
-                <i class="bi bi-journals"></i> Availability
-              </a>
-            </li>
-            <li class="nav-item">
-              <hr />
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/authors/create">
-                <i class="bi bi-plus-lg"></i> Create New Author
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/genres/create">
-                <i class="bi bi-plus-lg"></i> Create New Genre
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="/catalog/books/create">
-                <i class="bi bi-plus-lg"></i> Create New Book
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link text-white"
-                href="/catalog/bookinstances/create"
-              >
-                <i class="bi bi-plus-lg"></i> Create New Book Instance
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-9 p-5"><%- body -%></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library App</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
+  <link rel="stylesheet" href="/bootstrap/icons/bootstrap-icons.css" />
+  <script src="/bootstrap/js/bootstrap.bundle.js" defer></script>
+</head>
+
+<body class="h-100">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="sidebar-nav col-sm-3 d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto gap-3 text-white text-decoration-none"><i class="bi bi-book fs-4"></i>
+          <span class="fs-4">Local Library</span>
+        </a>
+        <hr />
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link text-white <% if(locals.page && page === "home"){ %><%= "active" %><% } %>" href="/catalog"><i class="bi bi-house"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white <% if(locals.page && page === "books"){ %><%= "active" %><% } %>" href="/catalog/books">
+              <i class="bi bi-bookshelf"></i> Books
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white <% if(locals.page && page === "authors"){ %><%= "active" %><% } %>" href="/catalog/authors">
+              <i class="bi bi-person-lines-fill"></i> Authors
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white <% if(locals.page && page === "genres"){ %><%= "active" %><% } %>" href="/catalog/genres">
+              <i class="bi bi-list"></i> Genres
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white <% if(locals.page && page === "book instances"){ %><%= "active" %><% } %>" href="/catalog/bookinstances">
+              <i class="bi bi-journals"></i> Availability
+            </a>
+          </li>
+          <li class="nav-item">
+            <hr />
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/catalog/authors/create">
+              <i class="bi bi-plus-lg"></i> Create New Author
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/catalog/genres/create">
+              <i class="bi bi-plus-lg"></i> Create New Genre
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/catalog/books/create">
+              <i class="bi bi-plus-lg"></i> Create New Book
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/catalog/bookinstances/create">
+              <i class="bi bi-plus-lg"></i> Add New Book Copy
+            </a>
+          </li>
+        </ul>
       </div>
+      <div class="col-sm-9 p-5"><%- body -%></div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
