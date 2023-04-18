@@ -56,12 +56,12 @@ npm run dev
 Create a file in the root directory called .env and add the following:
 
 ```node
-MONGO_URI
+MONGO_URI="YOUR_MONGO_URI"
 # Optional, default is 3000
-PORT = YOUR_PORT_CHOICE;
+PORT = "YOUR_PORT_CHOICE"
 ```
 
-Replace MONGO_URI with your MongoDB connection string.
+Replace YOUR_MONGO_URI with your MongoDB connection string.
 Local or Atlas connections both work.
 Replace YOUR_PORT_CHOICE with whatever port you want to use.
 You can actually just remove this line and the default port of 3000 will be used.
